@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CSVManager.hpp"
+#include "models/College.hpp"
 #include <vector>
 #include <string>
 
@@ -10,7 +11,10 @@ class CollegeController {
         CSVManager csvManager;
     
     public: 
-        void addCollege(const std::string& collegename, const std::string& collegecode);
-        bool UpdateCollege(const std::string &collegname, const std::vector<std::string>& newDetails);
-        bool deleteCollege(const std::string &collegename);
+        // College Controller Constructor
+        CollegeController(const std::string& collegeFilePath);
+
+        void addCollege(const College& college);
+        bool UpdateCollegeByCollegeCode(const std::string &collegeCode, const College& updatedCollege);
+        bool deleteCollege(const std::string &collegeCode);
 };
