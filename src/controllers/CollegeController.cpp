@@ -11,14 +11,26 @@ CollegeController::CollegeController(const std::string& collegeFilePath) : colle
 void CollegeController::addCollege(const College& college) {
     auto data = csvManager.read_csv(collegeFile);
 
+    if (data.size() < 2) {
+        std::cerr << "Error: CSV data format is incorrect or empty.\n";
+        return;
+    }
+
     std::vector<std::string> newCollege = {
-        college.getCollegeCode(),
-        college.getCollegeName()
+        college.getCollegeName(),
+        college.getCollegeCode()
     };
 
-    for(size_t i = 0; i < data.size(); i++) {
-        data[i].second.push_back(newCollege[i]);
+    // check if college exists 
+    for (size_t i = 0; i < data[1].second.size(); i++) {
+        if (data[1].second[i] == college.getCollegeCode()) {
+            std::cout << "College already exists.\n";
+            return;
+        }
     }
+
+    data[0].second.push_back(college.getCollegeName());  
+    data[1].second.push_back(college.getCollegeCode()); 
 
     csvManager.write_csv(collegeFile, data);
     std::cout << "College added successfully.\n";
@@ -28,10 +40,16 @@ bool CollegeController::UpdateCollegeByCollegeCode(const std::string &collegeCod
     auto data = csvManager.read_csv(collegeFile);
     bool updated = false; 
 
+    for (size_t i = 0; i < data[0].second.size(); i++) {
+        if (data[0].second[i] == updatedCollege.getCollegeName()) {
+            std::cout << "College name already exists.\n";
+        }
+    }
+
     for (size_t i = 0; i < data.size(); i++) {
-        if (data[0].second[i] == collegeCode) {
+        if (data[1].second[i] == collegeCode) {
             data[0].second[i] = updatedCollege.getCollegeName();
-            data[2].second[i] = updatedCollege.getCollegeCode();
+            data[1].second[i] = updatedCollege.getCollegeCode();
             updated = true;
             break;
         }

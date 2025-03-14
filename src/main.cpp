@@ -8,14 +8,10 @@ int main() {
     // Use a test CSV file for this example
     CollegeController collegeController("data/college.csv");
     
-    // create some colleges 
-    College college1("CCS", "College of Computer Studies");
-    College college2("CCS", "College of Computer Studies");
+    // update college 
+    College updatedCollege("SCS", "School of Computer Studies");
 
-    // Add students to the CSV file
-    std::cout << "Adding students...\n";
-    collegeController.addCollege(college1);
-    collegeController.addCollege(college2);
+    collegeController.UpdateCollegeByCollegeCode("CCS", updatedCollege); 
 
     return 0;
 }
