@@ -1,17 +1,20 @@
 #include <iostream>
 #include "controllers/StudentController.hpp"
 #include "controllers/CollegeController.hpp"
+#include "controllers/ProgramController.hpp"
+#include "models/Program.hpp"
 #include "models/Student.hpp"
 #include "models/College.hpp"
 
 int main() {
     // Use a test CSV file for this example
-    CollegeController collegeController("data/college.csv");
+    ProgramController programController("data/program.csv");
     
-    // update college 
-    College updatedCollege("SCS", "School of Computer Studies");
+    // create program 
+    Program newProgram("Bachelors of Science in Computer Science", "BSCS", "CCS");
 
-    collegeController.UpdateCollegeByCollegeCode("CCS", updatedCollege); 
+    programController.addProgram(newProgram);
 
+    
     return 0;
 }
