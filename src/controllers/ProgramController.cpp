@@ -62,10 +62,12 @@ bool ProgramController::deleteByProgramCode(const std::string &programcode) {
     auto data = csvManager.read_csv(programFile);
     bool deleted = false;
 
-    for (size_t i = 0; i < data.size(); i++) {
+    // Iterate using the number of rows in the program code column
+    for (size_t i = 0; i < data[1].second.size(); i++) {
         if (data[1].second[i] == programcode) {
+            // Remove the matching row from all columns
             for (size_t j = 0; j < data.size(); j++) {
-                data[j].second.erase(data[j].second.begin() + 1);
+                data[j].second.erase(data[j].second.begin() + i);
             }
             deleted = true;
             break;

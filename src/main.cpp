@@ -10,11 +10,7 @@ int main() {
     // Use a test CSV file for this example
     ProgramController programController("data/program.csv");
     
-    // create program 
-    Program newProgram("Bachelors of Science in Computer Science", "BSCS", "CCS");
-
-    programController.addProgram(newProgram);
-
-    
+    // delete program 
+    programController.deleteByProgramCode("BSCS");
     return 0;
 }
